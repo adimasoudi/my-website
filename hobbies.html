@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adi Masoudi - About Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('image_hobbies.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+        .content {
+            display: flex;
+            flex-direction: row;
+            padding: 2rem;
+            align-items: flex-start; /* Align items to the start of the flex container */
+            justify-content: space-between; /* Add space between items */
+        }
+        .profile-img {
+            flex: 1;
+            text-align: right;
+        }
+        .profile-img img {
+            border-radius: 20px; /* Rounded corners for a softer rectangular look */
+            width: 300px; /* Set the width to make it rectangular */
+            height: auto; /* Set the height proportionally to keep the rectangular shape */
+        }
+        .profile-text {
+            flex: 2;
+            font-family: 'Times New Roman', Times, serif; /* New Roman font */
+            text-align: justify; /* Justify text */
+            padding: 2rem;
+            max-width: 800px;
+            color: black; /* Paragraph color */
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        a.email-link {
+            color: #00aaff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <a href="index.html">Homepage</a>
+        <a href="publications.html">Publications</a>
+        <a href="skills.html">Skills</a>
+        <a href="hobbies.html">Hobbies</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="profile-text">
+            <h2>My hobbies</h2>
+            <p>Music has always been a significant passion of mine, and I began playing the violin at the age of 11. This instrument quickly became one of the most meaningful aspects of my life. Beyond giving me the opportunity to perform in orchestras, playing the violin has provided me with a unique perspective on life, helping me stay calm and make better decisions. In 2017, my love for music expanded to include playing the guitar and composing electronic music. One of the most fascinating areas of interest for me is understanding music, and sound in general, from a physics perspective.</p>
+        </div>
+        <div class="profile-img">
+            <img src="adi_violin.jpg" alt="Adi Masoudi">
+        </div>
+    </div>
+
+    <!-- Footer with Contact Info -->
+    <footer>
+        <p>Contact: <a href="mailto:adimasoudi1998@gmail.com" class="email-link">adimasoudi1998@gmail.com</a> | Phone: +989362442924</p>
+    </footer>
+
+</body>
+</html>
