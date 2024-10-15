@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sample Entropy Computation in Time Series">
+    <meta name="author" content="Adi Masoudi">
+    <title>Sample Entropy in Time Series</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+
+            padding: 0;
+            background-image: url('image1.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Styling for the upper navigation bar */
+        nav.top-menu {
+            background-color: black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav.top-menu a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+       /* Styling for the table of contents */
+       nav.toc {
+       position: fixed; /* Keep it fixed in the viewport */
+       top: 0; /* Start from the top */
+       left: 0; /* Align to the left */
+       height: 100%; /* Full height of the viewport */
+       width: 130px; /* Width of the TOC */
+       padding: 10px; /* Padding inside the TOC */
+       background-color: black; /* Background color */
+       border-right: 1px solid #ddd; /* Optional border on the right */
+       color: white; /* Text color for better visibility */
+       overflow-y: auto; /* Enable vertical scrolling if content overflows */
+       }
+
+        nav.toc h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        nav.toc ol {
+            list-style-type: none;
+        }
+
+        nav.toc ol li {
+            margin-bottom: 10px;
+        }
+
+        nav.toc a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        nav.toc a:hover {
+            text-decoration: underline;
+        }
+
+
+        .content {
+            display: flex;
+            flex-direction: row;
+            padding: 2rem;
+            align-items: flex-start; /* Align items to the start of the flex container */
+            justify-content: space-between; /* Add space between items */
+        }
+        .container {
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px 15px 20px 190px; /* Add padding inside the container */
+        background-color: white; /* Optional: Set background color */
+   
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif; 
+        }
+
+        h3 {
+            font-family: 'Times New Roman', Times, serif; 
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-family: 'Times New Roman', Times, serif; 
+        }
+
+        .justified-text {
+            text-align: justify;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Menu (Top) -->
+    <nav class="top-menu">
+        <a href="index.html">Homepage</a>
+        <a href="publications.html">Publications</a>
+        <a href="skills.html">Skills</a>
+        <a href="hobbies.html">Hobbies</a>
+        <a href="research.html">Research</a>
+    </nav>
+
+
+
+    <!-- Table of Contents (Left Side) -->
+    <nav class="toc">
+        <h1>Table of Contents</h1>
+        <ol>
+            <li><a href="#project">Project</a></li>
+            <li><a href="#data-description">Data Description</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#references">References</a></li>
+        </ol>
+    </nav>
+
+<div class="container">
+    <h2 id="project">Project</h2>
+    <p class="justified-text">In this research, I will use the concept of entropy to investigate the complexity of financial time series. To do so, I have analyzed the daily price reports of four assets from different markets. The tool I used for this analysis is multiscale entropy. The general outline of my project is as follows:</p>
+    <p>1. Data Description: In this section, I will introduce the data and their sources.</p>
+    <p>2. Methodology: Here, I will discuss the methodology and the tools used in the analysis.</p>
+    <p>3. Results: This section will present the results of the analysis.</p>
+    <p>4. Conclusion: This section will discuss the findings.</p>
+    <p>5. References: The applied material in the research. </p>
+
+
+<h2 id="data-description">Data Description</h2>
+    <p class="justified-text">
+      In this research, I have used daily price time series data for Bitcoin, EUR/USD, gold, and oil (figure1). The data, obtained from the yfinance website, consist of historical values. Due to the varying inception dates of these assets, the length of available data for each differs. The datasets include several key pieces of information: opening price, closing price, highest and lowest prices per day, date, and daily trading volume. For my analysis, I focused exclusively on the log-return series, as shown in Figure 2.
+    </p>
+    
+    <!-- Displaying Figure 1 -->
+    <figure style="text-align: center;">
+        <img src="fig1.jpg" alt="daily price time series" style="width: 100%; max-width: 800px;">
+        <figcaption>Figure 1: Daily price report of Bitcoin, EUR/USD, Gold, and Oil.</figcaption>
+    </figure>
+
+    <p>The log-return time series is computed according to the following equation:</p>
+    <p style="text-align: center;">
+        \( \text{Log_return} = \log\left(\frac{P_i}{P_{i-1}}\right) \)
+    </p>
+
+    <!-- Displaying Figure 2 -->
+     <figure style="text-align: center;">
+       <img src="fig2.jpg" alt="daily price time series" style="width: 100%; max-width: 800px;">
+       <figcaption>Figure 2: Log-return time series of Bitcoin, EUR/USD, Gold and Oil.</figcaption>
+     </figure>
+
+    <p class="justified-text">I used Log-return time series because they offer several key advantages over simple returns. They approximate a normal distribution, making them more suitable for statistical modeling, and they are additive over time, allowing for straightforward multi-period analysis. Log-returns also account for proportional changes rather than absolute ones, enabling easier comparisons between assets of different price levels. Additionally, they align well with financial models that assume prices follow geometric Brownian motion, and they compress extreme values, reducing the impact of outliers. Overall, log-returns provide a more consistent and mathematically convenient framework for analyzing financial time series.</p>
+    
+
+<h2 id="methodology">Methodology</h2>
+    <p class="justified-text">Entropy is a measurable physical quantity that actually indicates the amount of disorder or uncertainty in a system. The higher the entropy, the more disorder there is in the system. Entropy can also be analyzed for time series. This concept was first introduced by American mathematician Claude Shannon in 1948 in a paper titled "A Mathematical Theory of Communication". Shannon's entropy theory is a measure for quantifying the amount of information. Higher entropy indicates more disorder and more information in the system. If X is a discrete random variable chosen from the interval 0 to 1, the entropy according to Shannon's theory is obtained from following equation.</p>
+    
+
+    <p>The Shannon entropy \( H(x) \) is defined as follows:</p>
+
+    <p style="text-align: center;">
+        \( H(x) = -\sum p(x) \log(p(x)) \)
+    </p>
+
+
+    <p class="justified-text">Various definitions of entropy can be derived from Shannon entropy, one of the problems with entropy definitions is that they are not applicable to arbitrary time series. Many algorithms have been proposed to estimate the complexity of a real-world time series, which work well for low-dimensional time series but encounter issues when noise is added to the time series. One method to overcome this problem is to use the Kolmogorov-Chaitin algorithmic complexity for dynamic systems. However, entropy can be defined in a way that is applicable to any time series. Here I am going to discuss permutation entropy and sample entropy:</p>
+    <h3> 1. Permutation Entropy </h3>
+    <p class="justified-text">In Shannon entropy methods, a substitute time series \( S_t \) is usually used to calculate the entropy of the time series \( X_t \). For this purpose, the time series \( X \) is divided into \( m \) sections. The set \( S \) also has specific values, which in fact equal the number of sections of the set \( X \).</p>
+    
+    <p style="text-align: center;">
+         \( X = P_1 \cup \ldots \cup P_m \)
+    </p>
+
+    <p class="justified-text">Then, for each \( X_t \) belonging to section \( P_i \), the index \( i \) is added to the set \( S \). In many cases, dividing \( X \) is difficult. In the permutation entropy method, this task is performed by considering the neighboring data points. To understand how permutation entropy is calculated, consider an arbitrary time series \( X = \{4, 7, 9, 10, 6, 11, 3\} \). First, a sliding time window is considered on the time series, with its length defined by \( n \), which is usually set between 3 and 7. If \( n = 2 \), the time series is transformed as follows:</p>
+ 
+        <p style="text-align: center;">
+           \( X = [4, 7], [7, 9], [9, 10], [10, 6], [6, 11], [11, 3] \) 
+        </p>
+
+    
+    <p class="justified-text">The pairs of data in the above series can be divided into two categories: \( x_t < x_{t+1} \) and \( x_t > x_{t+1} \). Two pairs, \( [10, 6] \) and \( [11, 3] \), fall into the \( x_t > x_{t+1} \) category, and the remaining pairs fall into the \( x_t < x_{t+1} \) category. The total number of data pairs is 6, so the permutation entropy for the above time series is obtained as follows:</p>
+    
+    <p style="text-align: center;">
+          \( H(2) = -\frac{4}{6} \log \frac{4}{6} - \frac{2}{6} \log \frac{2}{6} = 0.918 \)   
+    </p>
+          
+    <p class="justified-text">The general formula for the permutation entropy of a time series \( \{X_t\} \) for \( t = 1 \ldots T \), which has an embedding window of length \( n \) and consequently \( n! \) permutations, is obtained from the following equation. For each permutation \( \pi \) of all possible permutations, it can be written as:</p>
+    
+    <p style="text-align: center;">
+       \( p(\pi) = \frac{ \{ t \mid 0 \leq t \leq T-n, \, (x_{t+1}, \ldots, x_{t+T}) \text{ has type } \pi \} }{ T - n + 1 } \)
+    </p>
+
+    <p class="justified-text">The entropy of a permutation has a range of \( 0 \leq H(n) \leq \log n! \). The value is 0 when the sequence is completely monotonically increasing or decreasing, and \( \log(n!) \) when the sequence is completely random and unpredictable, with all \( n! \) permutations equally likely to occur.</p>
+
+    <h3> 2. Sample Entropy </h3>
+    <p class="justified-text">
+        Let's discuss the procedure for computing the sample entropy of a time series. Assuming the time series is represented by \( x = \{x_1, \ldots, x_N\} \) with \( N \) points, where \( m \) represents the length of sequences to compare and \( r \) denotes the tolerance for accepting matches, the SampEn method can be outlined as follows:
+    </p>
+     <p>
+        <strong>Step 1:</strong> Create \( N - m + 1 \) template vectors \( X_m(i) \) with the following condition:
+        <p style="text-align: center;">
+             \( X_m(i) = \{x_{i+k} : 0 \leq k \leq m-1\}, \quad 1 \leq i \leq N - m + 1 \)
+        </p>
+    </p>
+
+    <p>
+        <strong>Step 2:</strong> The distance between two vectors is computed as follows:
+        <p style="text-align: center;">
+             \( d[X_m(i), X_m(j)] = \max \left\{ |x_{i+k} - x_{j+k}| : 0 \leq k \leq m - 1\right\}, \quad 1 \leq i,j \leq N - m + 1, \, i \neq j \)
+        </p>
+        <p>The maximum difference of their corresponding scalar components.</p>
+    </p>
+
+    <p class="justified-text">
+        <strong>Step 3:</strong> Let \( n^m \) represent the total number of \( m \)-dimensional matched vectors \( d[X_m(i), X_m(j)] \) which are less than or equal to a tolerance \( r \).
+    </p>
+
+    <p>
+        <strong>Step 4:</strong> For \( m = m + 1 \), Steps 1-3 are repeated and \( n^{(m+1)} \) represents the number of \( m + 1 \)-dimensional matched vectors.
+    </p>
+
+    <p>
+        <strong>Step 5:</strong> The sample entropy is defined by the formula:
+    <div style="text-align: center;">
+        \( \text{SampEn}(x, m, r) = -\ln \left( \frac{n^{(m+1)}}{n^m} \right) \)
+    </div>
+    </p>
+
+    <p class="justified-text">
+        The SampEn algorithm might lead to the subsequent issue for short time series. If \( n^{(m+1)} \) or \( n^m \) is zero, it results in undefined entropy. To ensure a meaningful sample entropy, the length of the time series should fall within the range of \( 10^m \) to \( 30^m \).
+    </p>
+
+    <h3>3. Multiscale Entropy Analysis</h3>
+    <p class="justified-text">
+         In 2002, Costa showed that an increase in entropy values may not always be associated with an increase in dynamical complexity. For example, a randomized time series has a higher entropy value than the original time series, while the randomization process might decay information and dependencies within the time series. Therefore, he proposed using multiscale time series analysis instead of relying on a single scale. In this method, sample entropy is utilized for multiscale analysis achieved through a coarse-graining procedure.
+    </p>
+
+    <p class="justified-text">
+        With a one-dimensional discrete time series, \( x = \{x_1, \ldots, x_N\} \), we generate sequential coarse-grained time series, \( \{y^{\tau}\} \), based on a scale factor \( \tau \), as defined by this equation:
+    </p>
+    
+    <div style="text-align: center;">
+        \( y_j^{(\tau)} = \frac{1}{\tau} \sum_{i=(j-1)\tau+1}^{j\tau} x_i, \quad 1 \leq j \leq \frac{N}{\tau} \)
+    </div>
+
+    <p class="justified-text">
+        For scale one, the time series \( \{y^{(1)}\} \) is simply the original time series. The length of each coarse-grained time series is equal to the length of the original time series divided by the scale factor \( \tau \), as shown in Figure 3.
+    </p>
+
+    <!-- Displaying Figure 3 -->
+    <figure style="text-align: center;">
+        <img src="fig3.jpg" alt="Coarse graining" style="width: 100%; max-width: 600px;">
+        <figcaption>Figure 3: Generating new time series from the original time series.</figcaption>
+    </figure>
+
+    <h3>4. Refined version of MSE (RCMSE)</h3>
+    <p class="justified-text">
+        Since the MSE method results in undefined and invalid values for short time series, I used the RCMSE method, which is more suitable for such cases. A refined version of MSE was introduced in 2014 as RCMSE, making it more suitable for short time series. The new method, depicted in Figure 4, divides the original time series into coarse-grained time series based on a specific scale factor, denoted as \( \tau \).
+    </p>
+    
+    <p class="justified-text">
+        For a given time series \( x = \{x_1, \ldots, x_N\} \), the \( k \)-th coarse-grained time series \( y_k^{(\tau)} = \{y_{(k,1)}^{(\tau)}, y_{(k,2)}^{(\tau)}, \ldots, y_{(k,p)}^{(\tau)}\} \) is defined as follows:
+    </p>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+        \( y_{(k,j)}^{(\tau)} = \frac{1}{\tau} \sum_{i=(j-1)\tau+k}^{j\tau+k-1} x_i, \quad 1 \leq j \leq \frac{N}{\tau}, \quad 1 \leq k \leq \tau \)
+    </div>
+
+    <figure style="text-align: center;">
+         <img src="scale2-fig4.jpg" alt="Coarse graining" style="width: 100%; max-width: 400px;">
+    </figure>
+    <figure style="text-align: center;">
+        <img src="scale3-fig4.jpg" alt="Coarse graining" style="width: 100%; max-width: 600px;">
+        <figcaption>Figure 4: Generating new time series from the original time series.</figcaption>
+    </figure>
+
+    <p class="justified-text">At a scale factor of \( \tau \), the number of matched vector pairs, n<sub>(k,\( \tau \))</sub><sup>(m+1)</sup> and n<sub>(k,\( \tau \))</sub><sup>m</sup>, is calculated for all \( \tau \) coarse-grained series. Let ń<sub>(k,\( \tau \))</sub><sup>m</sup> (ń<sub>(k,\( \tau \))</sub><sup>(m+1)</sup>) represent the mean of n<sub>(k,\( \tau \))</sub><sup>m</sup> (n<sub>(k,\( \tau \))</sub><sup>(m+1)</sup>) for \( 1 \leq k \leq \tau \). The RCMSE value at a scale factor of \( \tau \) is defined as the logarithm of the ratio of ń<sub>(k,\( \tau \))</sub><sup>(m+1)</sup> to ń<sub>(k,\( \tau \))</sub><sup>m</sup>. In other words, the RCMSE at a scale factor of \( \tau \) is provided as the equation:</p>
+
+    <div style="text-align: center;">
+        \( RCMSE(x, \tau, m, r) = -\ln \left( \frac{\overline{n}_{(k,\tau)}^{(m+1)}}{\overline{n}_{(k,\tau)}^m} \right) = 
+        -\ln \left( \frac{\sum_{k=1}^{\tau} n_{(k,\tau)}^{(m+1)}}{\sum_{k=1}^{\tau} n_{(k,\tau)}^m} \right) \)
+    </div>
+    
+    <p class="justified-text">
+       Based on the above equation, the RCMSE value is undefined only when all 
+       n<sub>(k,\( \tau \))</sub><sup>(m+1)</sup> or n<sub>(k,\( \tau \))</sub><sup>m</sup> are zero.
+
+    </p>
+
+<h2 id="results">Results</h2>
+    <p class="justified-text">Here I have applied both permutation entropy and sample entropy over 100 scales. The results of the RCMSE method can be seen in Figure 5. Figure 6 shows the RCMSE results in a single plot for better comparison of the behavior of different assets across various scales.</p>
+    <h3>Sample Entropy Results</h3>
+
+    <figure style="text-align: center;">
+        <img src="result-sample-entropy.jpg" alt="Coarse graining" style="width: 100%; max-width: 1000px;">
+        <figcaption>Figure 5: RCMSE of Bitcoin, EUR/USD, gold, and oil over 100 scales.</figcaption>
+    </figure>
+
+    <figure style="text-align: center;">
+        <img src="result-sample-entropy-all.jpg" alt="Coarse graining" style="width: 100%; max-width: 800px;">
+        <figcaption>Figure 6: sample entropy behavior of assets over scales up to a scale factor of 100.</figcaption>
+    </figure>
+    
+    
+    <p class="justified-text">Bitcoin shows relatively high complexity across all scales, but it becomes less unpredictable over time, though not as much as other assets.</p>
+    <p class="justified-text">EUR/USD has the most rapid drop in complexity, reflecting its highly regulated nature. It becomes very predictable at larger scales.</p>
+    <p class="justified-text">Gold follows a similar trend as oil, starting with high short-term complexity, then decreasing in volatility, but not as predictably as EUR/USD or oil.</p>
+    <p class="justified-text">Oil shows a high initial complexity, but it stabilizes quickly and is the most predictable over time, alongside EUR/USD.</p>
+
+    <p class="justified-text">
+       All four assets exhibit high short-term unpredictability, but the complexity decreases as the scale increases, meaning they become more predictable at larger time horizons. 
+       Bitcoin remains the most volatile and complex over time, while EUR/USD and oil show the greatest long-term predictability.
+    </p>
+
+    <h3>Permutation Entropy Results</h3>
+    <p> The permutation entropy of the log-return time series is shown in Figure 7 up to a scale factor of 100.</p>
+
+    <figure style="text-align: center;">
+        <img src="result-permutation-entropy.jpg" alt="Coarse graining" style="width: 100%; max-width: 1000px;">
+        <figcaption>Figure 7: Permutation entropy of Bitcoin, EUR/USD, Gold and Oil over various scales.</figcaption>
+    </figure>
+    <p>A better comparison of the permutation entropy behavior of the assets can be observed in Figure 8.</p>
+
+    <figure style="text-align: center;">
+        <img src="all-permutation.jpg" alt="Coarse graining" style="width: 100%; max-width: 800px;">
+        <figcaption>Figure 8: permutation entropy behavior of assets over scales up to a scale factor of 100.</figcaption>
+    </figure>
+    <p class="justified-text">
+       Bitcoin and Gold have consistent randomness across scales, indicating that they remain unpredictable in both short-term and long-term behavior.</p>
+    <p class="justified-text">
+       EUR/USD and Oil have more fluctuating behavior in their complexity, suggesting that external factors introduce short-term predictability, though their markets are still complex and volatile overall.</p>
+    
+
+
+<h2 id="conclusion">Conclusion</h2>   
+    <p class="justified-text">
+       Both permutation entropy and RCMSE reveal similar trends: these financial assets display high complexity and unpredictability in the short term, but their behavior becomes more regular and predictable at larger scales. The fluctuations in permutation entropy for some assets, particularly EUR/USD and Oil, suggest that these markets are sensitive to external factors, which can momentarily alter their complexity. In contrast, Bitcoin and Gold maintain more consistently high complexity, reflecting their nature as volatile and speculative assets.
+    </p>
+
+<h2 id="references">References</h2> 
+    <p class="justified-text">
+    1. Shannon, Claude Elwood. "A mathematical theory of communication." The Bell system technical journal 27, no. 3 (1948): 379-423.</p>
+    <p class="justified-text">
+    2. Bandt, Christoph, and Bernd Pompe. "Permutation entropy: a natural complexity measure for time series." Physical review letters 88, no. 17 (2002): 174102.</p>
+    <p class="justified-text">
+    3.Richman, Joshua S., and J. Randall Moorman. "Physiological time-series analysis using approximate entropy and sample entropy." American journal of physiology-heart and circulatory physiology 278, no. 6 (2000): H2039-H2049.</p>
+    <p class="justified-text">
+    4. Liu, Quan, Qin Wei, Shou-Zen Fan, Cheng-Wei Lu, Tzu-Yu Lin, Maysam F. Abbod, and Jiann-Shing Shieh. "Adaptive computation of multiscale entropy and its application in EEG signals for monitoring depth of anesthesia during surgery." Entropy 14, no. 6 (2012): 978-992.</p>
+    <p class="justified-text">
+    5. Costa, Madalena, Ary L. Goldberger, and C-K. Peng. "Multiscale entropy analysis of complex physiologic time series." Physical review letters 89, no. 6 (2002): 068102.</p>
+    <p class="justified-text">
+    6. Wu, Shuen-De, Chiu-Wen Wu, Shiou-Gwo Lin, Kung-Yen Lee, and Chung-Kang Peng. "Analysis of complex time series using refined composite multiscale entropy." Physics Letters A 378, no. 20 (2014): 1369-1374.</p>
+    </p>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adi Masoudi - About Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            color: black; /* Changed to black for testing */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Styling for the upper navigation bar */
+        nav.top-menu {
+            background-color: black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav.top-menu a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+        .content {
+            display: flex;
+            flex-direction: column; /* Changed to column for testing */
+            padding: 2rem;
+            justify-content: flex-start; /* Ensure items start at the top */
+            background-color: white; /* Added background for testing */
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 2rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-family: 'Times New Roman', Times, serif; 
+        }
+        a.email-link {
+            color: #00aaff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu (Top) -->
+    <nav class="top-menu">
+        <a href="index.html">Homepage</a>
+        <a href="publications.html">Publications</a>
+        <a href="skills.html">Skills</a>
+        <a href="hobbies.html">Hobbies</a>
+        <a href="research.html">Research</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="profile-text">
+            <h2>Publications</h2>
+            <p style="text-align: justify;"><b> 1) Investigation of Financial Market Behavior Using Multifractal and Multiscale Entropy: </b>In this work, which is ready for submission, we applied two different methods—multifractal analysis and multiscale entropy—to compare the complexity behavior of the log return time series for Bitcoin, oil, gold, and EUR/USD. The results revealed that Bitcoin exhibited a significantly different behavior compared to the other assets.</p>
+            <p style="text-align: justify;"><b> 2) Financial Market Time Series Prediction Using LSTM with PCA: </b>In this ongoing research, we aim to apply Principal Component Analysis (PCA) to a dataset containing various features. PCA will help capture the most important variations in the data, represented as principal components (PCA1, PCA2, etc.). We will then train an LSTM neural network using the most significant principal components to predict the time series. The research will focus on daily price reports for Bitcoin, Oil, Gold, and EUR/USD.</p>
+            <p style="text-align: justify;"> 3) Presented a conference paper titled <b>Investigation of Financial Market Time Series Complexity</b> at the 12th Statistical Physics Conference, Soft Matter and Complex Systems. In this paper, we investigated several financial price time series using multiscale sample entropy, multiscale permutation entropy, skewness, and kurtosis.</p>
+            <p style="text-align: justify;"><b> 4) Ongoing project on ordinal networks: </b>I am currently working on ordinal networks.</p>
+        </div>
+  
+    </div>
+
+    <!-- Footer with Contact Info -->
+    <footer>
+        <p>Contact: <a href="mailto:adimasoudi1998@gmail.com" class="email-link">adimasoudi1998@gmail.com</a> | Phone: +989362442924</p>
+    </footer>
+
+</body>
+</html>
